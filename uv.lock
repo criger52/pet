@@ -2,6 +2,19 @@ version = 1
 revision = 3
 requires-python = ">=3.12"
 
+[manifest]
+members = [
+    "api-gateway",
+    "auth-service",
+    "inventory-service",
+    "kafka-broker",
+    "notification-service",
+    "order-service",
+    "pet",
+    "product-service",
+    "user-service",
+]
+
 [[package]]
 name = "annotated-doc"
 version = "0.0.4"
@@ -32,6 +45,28 @@ sdist = { url = "https://files.pythonhosted.org/packages/19/14/2c5dd9f512b66549a
 wheels = [
     { url = "https://files.pythonhosted.org/packages/da/42/e921fccf5015463e32a3cf6ee7f980a6ed0f395ceeaa45060b61d86486c2/anyio-4.13.0-py3-none-any.whl", hash = "sha256:08b310f9e24a9594186fd75b4f73f4a4152069e3853f1ed8bfbf58369f4ad708", size = 114353, upload-time = "2026-03-24T12:59:08.246Z" },
 ]
+
+[[package]]
+name = "api-gateway"
+version = "0.1.0"
+source = { virtual = "api-gateway" }
+dependencies = [
+    { name = "fastapi" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "fastapi", specifier = ">=0.136.1" }]
+
+[[package]]
+name = "auth-service"
+version = "0.1.0"
+source = { virtual = "auth-service" }
+dependencies = [
+    { name = "fastapi" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "fastapi", specifier = ">=0.136.1" }]
 
 [[package]]
 name = "colorama"
@@ -77,6 +112,50 @@ wheels = [
 ]
 
 [[package]]
+name = "inventory-service"
+version = "0.1.0"
+source = { virtual = "inventory-service" }
+dependencies = [
+    { name = "fastapi" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "fastapi", specifier = ">=0.136.1" }]
+
+[[package]]
+name = "kafka-broker"
+version = "0.1.0"
+source = { virtual = "kafka-broker" }
+dependencies = [
+    { name = "fastapi" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "fastapi", specifier = ">=0.136.1" }]
+
+[[package]]
+name = "notification-service"
+version = "0.1.0"
+source = { virtual = "notification-service" }
+dependencies = [
+    { name = "fastapi" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "fastapi", specifier = ">=0.136.1" }]
+
+[[package]]
+name = "order-service"
+version = "0.1.0"
+source = { virtual = "order-service" }
+dependencies = [
+    { name = "fastapi" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "fastapi", specifier = ">=0.136.1" }]
+
+[[package]]
 name = "packaging"
 version = "26.2"
 source = { registry = "https://pypi.org/simple" }
@@ -90,14 +169,12 @@ name = "pet"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "fastapi" },
     { name = "pytest" },
     { name = "ruff" },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "fastapi", specifier = ">=0.136.1" },
     { name = "pytest", specifier = ">=9.0.3" },
     { name = "ruff", specifier = ">=0.15.12" },
 ]
@@ -110,6 +187,17 @@ sdist = { url = "https://files.pythonhosted.org/packages/f9/e2/3e91f31a7d2b083fe
 wheels = [
     { url = "https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl", hash = "sha256:e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746", size = 20538, upload-time = "2025-05-15T12:30:06.134Z" },
 ]
+
+[[package]]
+name = "product-service"
+version = "0.1.0"
+source = { virtual = "product-service" }
+dependencies = [
+    { name = "fastapi" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "fastapi", specifier = ">=0.136.1" }]
 
 [[package]]
 name = "pydantic"
@@ -284,3 +372,14 @@ sdist = { url = "https://files.pythonhosted.org/packages/55/e3/70399cb7dd41c10ac
 wheels = [
     { url = "https://files.pythonhosted.org/packages/dc/9b/47798a6c91d8bdb567fe2698fe81e0c6b7cb7ef4d13da4114b41d239f65d/typing_inspection-0.4.2-py3-none-any.whl", hash = "sha256:4ed1cacbdc298c220f1bd249ed5287caa16f34d44ef4e9c3d0cbad5b521545e7", size = 14611, upload-time = "2025-10-01T02:14:40.154Z" },
 ]
+
+[[package]]
+name = "user-service"
+version = "0.1.0"
+source = { virtual = "user-service" }
+dependencies = [
+    { name = "fastapi" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "fastapi", specifier = ">=0.136.1" }]

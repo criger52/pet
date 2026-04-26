@@ -1,0 +1,38 @@
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    ports:
+        - "8000:8000"
+  auth-service:
+    build:
+      context: .
+      dockerfile: auth-service/Dockerfile
+  inventory-service:
+    build:
+      context: .
+      dockerfile: inventory-service/Dockerfile
+  kafka-broker:
+    build:
+      context: .
+      dockerfile: kafka-broker/Dockerfile
+  notification-service:
+    build:
+      context: .
+      dockerfile: notification-service/Dockerfile
+  order-service:
+    build:
+      context: .
+      dockerfile: order-service/Dockerfile
+  product-service:
+    build:
+      context: .
+      dockerfile: product-service/Dockerfile
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+
+
+
