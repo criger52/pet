@@ -1,12 +1,19 @@
 name: Check
-on: push
+on: [push, pull_request]
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v6
+
+      - name: uv install
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
       - name: Install deps
         run: uv sync
+
       - name: Lint
-        run: ruff check
+        run: uv run ruff check
