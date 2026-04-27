@@ -1,5 +1,5 @@
 def main():
-    print("Hello from auth-service!")
+    print("Hello from notification_service!")
 
 
 if __name__ == "__main__":

@@ -9,6 +9,6 @@ COPY ../uv.lock ./
 
 RUN uv sync
 
-COPY . .
+COPY order_service/ .
 
 CMD ["uv", "run", "python", "main.py"]

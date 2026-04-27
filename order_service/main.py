@@ -1,5 +1,5 @@
 def main():
-    print("Hello from api-gateway!")
+    print("Hello from order_service!")
 
 
 if __name__ == "__main__":

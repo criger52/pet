@@ -1,5 +1,5 @@
 def main():
-    print("Hello from kafka-broker!")
+    print("Hello from inventory_service!")
 
 
 if __name__ == "__main__":

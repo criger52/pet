@@ -2,37 +2,41 @@ services:
   api-gateway:
     build:
       context: .
-      dockerfile: api-gateway/Dockerfile
+      dockerfile: api_gateway/Dockerfile
     ports:
         - "8000:8000"
+  auth-db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
   auth-service:
     build:
       context: .
-      dockerfile: auth-service/Dockerfile
+      dockerfile: auth_service/Dockerfile
+    depends_on:
+      - auth-db
   inventory-service:
     build:
       context: .
-      dockerfile: inventory-service/Dockerfile
+      dockerfile: inventory_service/Dockerfile
   kafka-broker:
     build:
       context: .
-      dockerfile: kafka-broker/Dockerfile
+      dockerfile: kafka_broker/Dockerfile
   notification-service:
     build:
       context: .
-      dockerfile: notification-service/Dockerfile
+      dockerfile: notification_service/Dockerfile
   order-service:
     build:
       context: .
-      dockerfile: order-service/Dockerfile
+      dockerfile: order_service/Dockerfile
   product-service:
     build:
       context: .
-      dockerfile: product-service/Dockerfile
+      dockerfile: product_service/Dockerfile
   user-service:
     build:
       context: .
-      dockerfile: user-service/Dockerfile
-
-
-
+      dockerfile: user_service/Dockerfile

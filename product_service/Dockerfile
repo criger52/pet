@@ -5,9 +5,10 @@ WORKDIR /app
 RUN pip install uv
 
 COPY pyproject.toml ./
-COPY ../uv.lock .
+COPY ../uv.lock ./
+
 RUN uv sync
 
-COPY . .
+COPY product_service/ .
 
 CMD ["uv", "run", "python", "main.py"]

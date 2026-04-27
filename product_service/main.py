@@ -1,5 +1,5 @@
 def main():
-    print("Hello from notification-service!")
+    print("Hello from product_service!")
 
 
 if __name__ == "__main__":

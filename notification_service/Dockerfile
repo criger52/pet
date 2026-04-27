@@ -4,11 +4,10 @@ WORKDIR /app
 
 RUN pip install uv
 
-COPY pyproject.toml ./
-COPY ../uv.lock ./
+COPY pyproject.toml uv.lock ./
 
 RUN uv sync
 
-COPY . .
+COPY notification_service/ .
 
 CMD ["uv", "run", "python", "main.py"]
