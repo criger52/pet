@@ -4,10 +4,9 @@ WORKDIR /app
 
 RUN pip install uv
 
-COPY pyproject.toml ./
-COPY ../uv.lock .
-RUN uv sync
-
 COPY auth_service/ .
+COPY uv.lock .
+
+RUN uv sync
 
 CMD ["uv", "run", "python", "main.py"]

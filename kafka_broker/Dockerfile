@@ -4,11 +4,9 @@ WORKDIR /app
 
 RUN pip install uv
 
-COPY pyproject.toml ./
-COPY ../uv.lock ./
+COPY kafka_broker/ .
+COPY uv.lock ./
 
 RUN uv sync
-
-COPY kafka_broker/ .
 
 CMD ["uv", "run", "python", "main.py"]

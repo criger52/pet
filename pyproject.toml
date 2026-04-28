@@ -10,12 +10,12 @@ dependencies = [
 
 [tool.uv.workspace]
 members = [
-    "api-gateway",
-    "auth-service",
-    "inventory-service",
-    "kafka-broker",
-    "notification-service",
-    "order-service",
-    "product-service",
-    "user-service",
+    "api_gateway",
+    "auth_service",
+    "inventory_service",
+    "kafka_broker",
+    "notification_service",
+    "order_service",
+    "product_service",
+    "user_service",
 ]

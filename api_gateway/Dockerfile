@@ -4,11 +4,9 @@ WORKDIR /app
 
 RUN pip install uv
 
-COPY pyproject.toml ./
-COPY ../uv.lock ./
+COPY api_gateway/ .
+COPY uv.lock .
 
 RUN uv sync
-
-COPY api_gateway/ .
 
 CMD ["uv", "run", "python", "main.py"]
