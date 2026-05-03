@@ -12,6 +12,9 @@ develop:
 up:
 	docker-compose up -d
 
+up-build:
+	docker-compose up --build -d
+
 down:
 	docker-compose down
 
@@ -23,3 +26,6 @@ apply-migrations:
 
 create-migrations:
 	alembic revision --autogenerate
+
+test:
+	pytest .

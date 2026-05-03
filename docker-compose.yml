@@ -1,10 +1,12 @@
 services:
-  api-gateway:
-    build:
-      context: .
-      dockerfile: api_gateway/Dockerfile
+  nginx-gateway:
+    image: nginx:alpine
     ports:
-        - "8000:8000"
+      - "8000:8000"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - auth-service
   auth-db:
     image: postgres:latest
     ports:

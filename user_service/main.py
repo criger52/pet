@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
+
 def main():
     app = FastAPI(
         debug=True,
