@@ -19,4 +19,4 @@ jobs:
         run: uv run ruff check
 
       - name: isort
-        run: isort . --check-only --diff
+        run: uv run isort . --check-only --diff
