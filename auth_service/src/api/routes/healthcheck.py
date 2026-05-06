@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException
+from http import HTTPStatus
 
+from fastapi import APIRouter, Depends, HTTPException
 from src.api.schemas.health import HealthSchema
 from src.services.healthcheck import HealthCheckService
-from http import HTTPStatus
 
 health_router = APIRouter()
 

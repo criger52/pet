@@ -1,7 +1,10 @@
-from httpx import AsyncClient
 from http import HTTPStatus
+
 import pytest
+from httpx import AsyncClient
+
 from auth_service.src.api.schemas.health import HealthSchema
+
 
 @pytest.mark.asyncio
 async def test__healthcheck__status__ok():
