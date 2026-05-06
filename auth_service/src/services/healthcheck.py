@@ -7,7 +7,7 @@ from src.db import get_async_session
 
 class HealthCheckService:
 
-    def __init__(self, session: AsyncSession):
+    def __init__(self, session: AsyncSession = Depends(get_async_session)):
         self.__session = session
 
 
@@ -17,8 +17,3 @@ class HealthCheckService:
         except (TimeoutError, SQLAlchemyError):
             return False
         return True
-
-def get_health_check_service(
-        session: AsyncSession = Depends(get_async_session)
-) -> HealthCheckService:
-    return HealthCheckService(session=session)

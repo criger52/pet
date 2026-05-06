@@ -26,6 +26,3 @@ apply-migrations:
 
 create-migrations:
 	alembic revision --autogenerate
-
-test:
-	pytest .
