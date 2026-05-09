@@ -12,13 +12,17 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - DATABASE_URL=postgresql+asyncpg://${AUTH_DB_USER}:${AUTH_DB_PASSWORD}@auth-db:5432/${AUTH_DB_NAME}
+      - POSTGRES_USER=${AUTH_DB_USER}
+      - POSTGRES_PASSWORD=${AUTH_DB_PASSWORD}
+      - POSTGRES_DB=${AUTH_DB_NAME}
   auth-service:
     build:
       context: .
       dockerfile: auth_service/Dockerfile
     depends_on:
       - auth-db
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://${AUTH_DB_USER}:${AUTH_DB_PASSWORD}@auth-db:5432/${AUTH_DB_NAME}
   inventory-service:
     build:
       context: .
