@@ -21,8 +21,32 @@ jobs:
       - name: isort
         run: uv run isort . --check-only --diff
 
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: uv install
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install deps
+        run: uv sync --all-packages
+
       - name: Run tests
         env:
           DATABASE_URL: postgresql+asyncpg://postgres:postgres@localhost:5432/postgres
-        run: |
-          uv run pytest --cov=. --cov-fail-under=80
+        run: uv run pytest --cov=. --cov-fail-under=80
