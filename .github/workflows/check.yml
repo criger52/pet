@@ -21,5 +21,8 @@ jobs:
       - name: isort
         run: uv run isort . --check-only --diff
 
-      - name: tests
-        run: uv run pytest --cov=. --cov-fail-under=80
+      - name: Run tests
+        env:
+          DATABASE_URL: postgresql+asyncpg://postgres:postgres@localhost:5432/postgres
+        run: |
+          uv run pytest --cov=. --cov-fail-under=80
