@@ -13,7 +13,7 @@ jobs:
           cache-dependency-glob: "uv.lock"
 
       - name: Install deps
-        run: uv sync
+        run: uv sync --all-packages
 
       - name: ruff
         run: uv run ruff check
