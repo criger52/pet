@@ -24,3 +24,22 @@ members = [
     "product_service",
     "user_service",
 ]
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+pythonpath = [
+    ".",
+    "auth_service",
+    "inventory_service",
+    "notification_service",
+    "order_service",
+    "product_service",
+    "user_service"
+]
+testpaths = [
+    "auth_service/tests",
+    "inventory_service/tests",
+    "notification_service/tests",
+    "order_service/tests",
+    "product_service/tests",
+    "user_service/tests"
+]
