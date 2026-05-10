@@ -1,6 +1,6 @@
 FROM python:3.12
 
-WORKDIR /app
+WORKDIR /auth_service
 
 RUN pip install uv
 

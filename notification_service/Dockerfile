@@ -1,6 +1,6 @@
 FROM python:3.12
 
-WORKDIR /app
+WORKDIR /notification_service
 
 RUN pip install uv
 
