@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 
+
 class Settings(BaseSettings):
     AUTH_SERVICE_NAME: str = "Auth Service"
     AUTH_SERVICE_VERSION: str = "1.0"

@@ -1,5 +1,4 @@
-from fastapi import FastAPI, APIRouter
-
+from fastapi import FastAPI
 from src.api.routes.router import auth_router
 from src.config import Settings
 

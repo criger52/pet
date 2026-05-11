@@ -3,7 +3,6 @@ from collections.abc import AsyncIterator
 import pytest
 from fastapi import FastAPI
 from httpx import ASGITransport, AsyncClient
-
 from src.app import Application
 from src.config import get_settings
 

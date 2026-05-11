@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 
+
 class Settings(BaseSettings):
     USER_SERVICE_NAME: str = "User Service"
     USER_SERVICE_VERSION: str = "1.0"
