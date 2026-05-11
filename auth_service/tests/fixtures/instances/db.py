@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
 @pytest.fixture
 async def async_engine():
     engine = create_async_engine(
-        "postgresql+asyncpg://postgres:postgres@localhost:5432/postgres",
+        "postgresql+asyncpg://auth:auth@localhost:5432/auth",
         echo=False
     )
     yield engine

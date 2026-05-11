@@ -4,8 +4,7 @@ WORKDIR /auth_service
 
 RUN pip install uv
 
-COPY auth_service/ .
-COPY uv.lock .
+COPY auth_service/ uv.lock .
 
 RUN uv sync
 

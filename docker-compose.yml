@@ -3,10 +3,9 @@ services:
     image: nginx:alpine
     ports:
       - "8000:8000"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - auth-service
+      - user-service
   auth-db:
     image: postgres:latest
     ports:
@@ -21,8 +20,8 @@ services:
       dockerfile: auth_service/Dockerfile
     depends_on:
       - auth-db
-    environment:
-      - DATABASE_URL=postgresql+asyncpg://${AUTH_DB_USER}:${AUTH_DB_PASSWORD}@auth-db:5432/${AUTH_DB_NAME}
+    env_file:
+      - .env
   inventory-service:
     build:
       context: .
@@ -47,3 +46,15 @@ services:
     build:
       context: .
       dockerfile: user_service/Dockerfile
+    depends_on:
+      - user-db
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://${USER_DB_USER}:${USER_DB_PASSWORD}@user-db:5432/${USER_DB_NAME}
+  user-db:
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=${USER_DB_USER}
+      - POSTGRES_PASSWORD=${USER_DB_PASSWORD}
+      - POSTGRES_DB=${USER_DB_NAME}

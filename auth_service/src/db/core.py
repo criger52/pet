@@ -6,9 +6,8 @@ from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
 
 DATABASE_URL = os.getenv(
     "AUTH_DB_URL",
-    "postgresql+asyncpg://postgres:postgres@localhost:5432/postgres"
+    "postgresql+asyncpg://auth:auth@localhost:5432/auth"
 )
-
 async_engine = create_async_engine(DATABASE_URL)
 
 async_session = async_sessionmaker(
@@ -17,9 +16,7 @@ async_session = async_sessionmaker(
     class_=AsyncSession
 )
 
+
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
-    session = async_session()
-    try:
+    async with async_session() as session:
         yield session
-    finally:
-        await session.close()

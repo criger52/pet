@@ -1,23 +1,13 @@
 import uvicorn
-from fastapi import FastAPI
-from src.api.routes.router import auth_router
 
+from src.app import Application
+from src.config import get_settings
 
-def include_routers(app: FastAPI) -> None:
-    app.include_router(auth_router)
-
-def create_app(**kwargs) -> FastAPI:
-    app = FastAPI(
-        debug=True,
-        **kwargs
-    )
-    include_routers(app)
-
-    return app
 
 def main():
-    app = create_app()
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    settings = get_settings()
+    app = Application(settings).create_app()
+    uvicorn.run(app, host="0.0.0.0", port=settings.AUTH_SERVICE_PORT)
 
 
 if __name__ == "__main__":

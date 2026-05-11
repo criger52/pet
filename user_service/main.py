@@ -1,13 +1,14 @@
 import uvicorn
-from fastapi import FastAPI
+
+from src.app import Application
+from src.config import get_settings
 
 
 def main():
-    app = FastAPI(
-        debug=True,
-    )
+    settings = get_settings()
+    app = Application(settings).create_app()
+    uvicorn.run(app, host="0.0.0.0", port=settings.USER_SERVICE_PORT)
 
-    uvicorn.run(app, host="0.0.0.0", port=8007)
 
 if __name__ == "__main__":
     main()

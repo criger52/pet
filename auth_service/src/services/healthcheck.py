@@ -2,7 +2,7 @@ from fastapi import Depends
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql.expression import text
-from src.db import get_async_session
+from src.db.core import get_async_session
 
 
 class HealthCheckService:

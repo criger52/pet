@@ -3,12 +3,16 @@ from collections.abc import AsyncIterator
 import pytest
 from fastapi import FastAPI
 from httpx import ASGITransport, AsyncClient
-from main import create_app
+
+from src.app import Application
+from src.config import get_settings
 
 
 @pytest.fixture
 def app() -> FastAPI:
-    return create_app()
+    settings = get_settings()
+    app = Application(settings).create_app()
+    return app
 
 
 @pytest.fixture
