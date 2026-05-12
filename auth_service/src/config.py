@@ -2,11 +2,11 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    AUTH_SERVICE_NAME: str = "Auth Service"
-    AUTH_SERVICE_VERSION: str = "1.0"
-    AUTH_DB_URL: str = "postgresql+asyncpg://auth:auth@auth-db:5432/auth"
-    AUTH_SERVICE_PORT: int = 8000
-    AUTH_DEBUG: bool = True
+    SERVICE_NAME: str = "Auth Service"
+    SERVICE_VERSION: str = "1.0"
+    DB_URL: str = "postgresql+asyncpg://auth:auth@auth-db:5432/auth"
+    SERVICE_PORT: int = 8000
+    DEBUG: bool = True
 
     class ConfigDict:
         extra = "ignore"

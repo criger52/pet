@@ -9,13 +9,17 @@ services:
       - auth-service
       - user-service
   auth-db:
-    image: postgres:latest
+    image: postgres:18
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=${AUTH_DB_USER}
       - POSTGRES_PASSWORD=${AUTH_DB_PASSWORD}
       - POSTGRES_DB=${AUTH_DB_NAME}
+    env_file:
+      - auth_service/.env
+    volumes:
+      - auth_postgres_data:/var/lib/postgresql
   auth-service:
     build:
       context: .
@@ -23,7 +27,7 @@ services:
     depends_on:
       - auth-db
     env_file:
-      - .env
+      - auth_service/.env
   inventory-service:
     build:
       context: .
@@ -65,11 +69,21 @@ services:
       - user-db
     environment:
       - DATABASE_URL=postgresql+asyncpg://${USER_DB_USER}:${USER_DB_PASSWORD}@user-db:5432/${USER_DB_NAME}
+    env_file:
+      - user_service/.env
   user-db:
-    image: postgres:latest
+    image: postgres:18
     ports:
       - "5433:5432"
     environment:
       - POSTGRES_USER=${USER_DB_USER}
       - POSTGRES_PASSWORD=${USER_DB_PASSWORD}
       - POSTGRES_DB=${USER_DB_NAME}
+    env_file:
+      - user_service/.env
+    volumes:
+      - user_postgres_data:/var/lib/postgresql
+
+volumes:
+  auth_postgres_data:
+  user_postgres_data:

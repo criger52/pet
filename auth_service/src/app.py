@@ -14,9 +14,9 @@ class Application:
 
     def create_app(self):
         self._app = FastAPI(
-            title=self.settings.AUTH_SERVICE_NAME,
-            version=self.settings.AUTH_SERVICE_VERSION,
-            debug=self.settings.AUTH_DEBUG,
+            title=self.settings.SERVICE_NAME,
+            version=self.settings.SERVICE_VERSION,
+            debug=self.settings.DEBUG,
         )
         self._include_routers()
 
