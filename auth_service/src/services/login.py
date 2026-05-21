@@ -8,7 +8,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.schemas.user import LoginRequest, LoginResponse
 from src.config import Settings
-
 from src.db.tables import UserTable
 from src.exceptions.messages import ErrorMessages
 from src.exceptions.user import LoginFailedException

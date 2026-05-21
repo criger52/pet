@@ -12,4 +12,3 @@ class UserTable(Base):
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     email: Mapped[str] = mapped_column(unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(nullable=False)
-
