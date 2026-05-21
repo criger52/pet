@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from src.api.routes.router import user_router
 from src.config import Settings
 

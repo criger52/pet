@@ -1,8 +1,10 @@
 import logging
 
 import uvicorn
+
 from src.app import Application
 from src.config import get_settings
+
 
 logging.basicConfig(
     level=logging.INFO,

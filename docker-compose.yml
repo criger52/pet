@@ -12,10 +12,6 @@ services:
     image: postgres:18
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_USER=${AUTH_DB_USER}
-      - POSTGRES_PASSWORD=${AUTH_DB_PASSWORD}
-      - POSTGRES_DB=${AUTH_DB_NAME}
     env_file:
       - auth_service/.env
     volumes:
@@ -26,29 +22,19 @@ services:
       dockerfile: auth_service/Dockerfile
     depends_on:
       - auth-db
+      - kafka-broker
     env_file:
       - auth_service/.env
   inventory-service:
     build:
       context: .
       dockerfile: inventory_service/Dockerfile
-#  kafka-broker:
-#    image: apache/kafka:latest
-#    environment:
-#      KAFKA_NODE_ID: 1
-#      KAFKA_PROCESS_ROLES: broker,controller
-#      KAFKA_LISTENERS: PLAINTEXT://localhost:9092,CONTROLLER://localhost:9093
-#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-#      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
-#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
-#      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
-#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-#      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-#      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-#      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-#      KAFKA_NUM_PARTITIONS: 3
-#    ports:
-#      - "9092:9092"
+  kafka-broker:
+    image: apache/kafka:latest
+    env_file:
+      - .env
+    ports:
+      - "9092:9092"
   notification-service:
     build:
       context: .
@@ -67,18 +53,12 @@ services:
       dockerfile: user_service/Dockerfile
     depends_on:
       - user-db
-    environment:
-      - DATABASE_URL=postgresql+asyncpg://${USER_DB_USER}:${USER_DB_PASSWORD}@user-db:5432/${USER_DB_NAME}
     env_file:
       - user_service/.env
   user-db:
     image: postgres:18
     ports:
       - "5433:5432"
-    environment:
-      - POSTGRES_USER=${USER_DB_USER}
-      - POSTGRES_PASSWORD=${USER_DB_PASSWORD}
-      - POSTGRES_DB=${USER_DB_NAME}
     env_file:
       - user_service/.env
     volumes:

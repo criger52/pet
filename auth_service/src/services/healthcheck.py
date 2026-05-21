@@ -1,13 +1,12 @@
-from fastapi import Depends
+from dishka import FromDishka
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql.expression import text
-from src.db.core import get_async_session
 
 
 class HealthCheckService:
 
-    def __init__(self, session: AsyncSession):
+    def __init__(self, session: FromDishka[AsyncSession]):
         self.__session = session
 
 
@@ -17,8 +16,3 @@ class HealthCheckService:
         except (TimeoutError, SQLAlchemyError):
             return False
         return True
-
-async def get_healthcheck_service(
-    session: AsyncSession = Depends(get_async_session)
-) -> HealthCheckService:
-    return HealthCheckService(session=session)

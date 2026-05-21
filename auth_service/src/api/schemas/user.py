@@ -1,4 +1,7 @@
+import uuid
+
 from pydantic import EmailStr
+
 from src.api.schemas.base import BaseSchema
 
 
@@ -7,5 +10,14 @@ class UserCreate(BaseSchema):
     password: str
 
 class UserResponse(BaseSchema):
-    id: int
+    id: uuid.UUID
     email: EmailStr
+
+class LoginRequest(BaseSchema):
+    email: EmailStr
+    password: str
+
+
+class LoginResponse(BaseSchema):
+    access_token: str
+    refresh_token: str

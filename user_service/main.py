@@ -1,4 +1,5 @@
 import uvicorn
+
 from src.app import Application
 from src.config import get_settings
 
