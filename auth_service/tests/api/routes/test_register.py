@@ -5,6 +5,7 @@ from unittest.mock import AsyncMock, patch
 from httpx import AsyncClient
 
 from src.api.schemas.user import UserResponse
+from src.services.register import RegisterService
 
 
 API_URL = "api/v1/auth/"
@@ -54,3 +55,22 @@ async def test__register__status__conflict(
             }
         )
     assert result.status_code == HTTPStatus.CONFLICT
+
+
+async def test__register__status__internal_error(
+        client: AsyncClient,
+):
+    with patch.object(
+        RegisterService,
+        "create_user",
+        AsyncMock(side_effect=RuntimeError("unexpected")),
+    ):
+        result = await client.post(
+            f"{API_URL}register",
+            json={
+                "email": "new@example.com",
+                "password": "test_pswd1",
+            },
+        )
+
+    assert result.status_code == HTTPStatus.INTERNAL_SERVER_ERROR
