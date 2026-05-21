@@ -1,0 +1,53 @@
+name: Check
+on: [push, pull_request]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: uv install
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install deps
+        run: uv sync --all-packages
+
+      - name: ruff
+        run: uv run ruff check
+
+      - name: isort
+        run: uv run isort . --check-only --diff
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: uv install
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Install deps
+        run: uv sync --all-packages
+
+      - name: Start all databases with Docker Compose
+        run: docker compose -f docker-compose.test.yml up -d
+
+      - name: Run tests
+        env:
+          AUTH_SERVICE_DB_URL: postgresql+asyncpg://auth:auth@localhost:5432/auth_test
+          USER_SERVICE_DB_URL: postgresql+asyncpg://user:user@localhost:5433/user_test
+          INVENTORY_SERVICE_DB_URL: postgresql+asyncpg://inventory:inventory@localhost:5434/inventory_test
+          NOTIFICATION_SERVICE_DB_URL: postgresql+asyncpg://notification:notification@localhost:5435/notification_test
+          ORDER_SERVICE_DB_URL: postgresql+asyncpg://order:order@localhost:5436/order_test
+          PRODUCT_SERVICE_DB_URL: postgresql+asyncpg://product:product@localhost:5437/product_test
+        run: uv run pytest --cov=. --cov-fail-under=80
+
+      - name: Stop databases
+        run: docker compose -f docker-compose.test.yml down

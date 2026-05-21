@@ -1,0 +1,69 @@
+services:
+  nginx-gateway:
+    image: nginx:alpine
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - auth-service
+      - user-service
+  auth-db:
+    image: postgres:18
+    ports:
+      - "5432:5432"
+    env_file:
+      - auth_service/.env
+    volumes:
+      - auth_postgres_data:/var/lib/postgresql
+  auth-service:
+    build:
+      context: .
+      dockerfile: auth_service/Dockerfile
+    depends_on:
+      - auth-db
+      - kafka-broker
+    env_file:
+      - auth_service/.env
+  inventory-service:
+    build:
+      context: .
+      dockerfile: inventory_service/Dockerfile
+  kafka-broker:
+    image: apache/kafka:latest
+    env_file:
+      - .env
+    ports:
+      - "9092:9092"
+  notification-service:
+    build:
+      context: .
+      dockerfile: notification_service/Dockerfile
+  order-service:
+    build:
+      context: .
+      dockerfile: order_service/Dockerfile
+  product-service:
+    build:
+      context: .
+      dockerfile: product_service/Dockerfile
+  user-service:
+    build:
+      context: .
+      dockerfile: user_service/Dockerfile
+    depends_on:
+      - user-db
+    env_file:
+      - user_service/.env
+  user-db:
+    image: postgres:18
+    ports:
+      - "5433:5432"
+    env_file:
+      - user_service/.env
+    volumes:
+      - user_postgres_data:/var/lib/postgresql
+
+volumes:
+  auth_postgres_data:
+  user_postgres_data:
