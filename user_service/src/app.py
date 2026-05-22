@@ -5,9 +5,9 @@ from dishka import make_async_container
 from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
 
-from src.db.di import DatabaseProvider
 from src.api.routes.router import user_router
 from src.config import Settings
+from src.db.di import DatabaseProvider
 from src.services.di import ServicesProvider
 
 
