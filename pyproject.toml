@@ -35,17 +35,8 @@ pythonpath = [
     "product_service",
     "user_service"
 ]
-testpaths = [
-    "auth_service/tests",
-    "inventory_service/tests",
-    "notification_service/tests",
-    "order_service/tests",
-    "product_service/tests",
-    "user_service/tests"
-]
 
 [tool.coverage.run]
-source = ["auth_service"]
 omit = [
     "*/tests/*",
     "*/migrations/*",
@@ -54,6 +45,7 @@ omit = [
 
 [tool.coverage.report]
 fail_under = 80
+
 [tool.isort]
 line_length = 88
 multi_line_output = 3

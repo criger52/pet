@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     SERVICE_NAME: str = "Auth Service"
     SERVICE_VERSION: str = "1.0"
-    DB_URL: str = "postgresql+asyncpg://auth:auth@auth-db:5432/auth"
+    AUTH_SERVICE_DB_URL: str = "postgresql+asyncpg://auth:auth@auth-db:5432/auth"
     SERVICE_PORT: int = 8000
     DEBUG: bool = True
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 360

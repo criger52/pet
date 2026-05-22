@@ -23,7 +23,7 @@ class DatabaseProvider(Provider):
     @provide(scope=Scope.APP)
     async def engine(self) -> AsyncGenerator[AsyncEngine, None]:
         engine = create_async_engine(
-            url=self.__settings.DB_URL,
+            url=self.__settings.AUTH_SERVICE_DB_URL,
             echo=self.__settings.DEBUG,
 
         )
