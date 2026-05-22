@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        service: [auth_service]
+        service: [auth_service, user_service]
 
     steps:
       - uses: actions/checkout@v6
@@ -45,7 +45,7 @@ jobs:
         run: docker compose -f docker-compose.test.yml up -d
 
       - name: Run tests for ${{ matrix.service }}
-        run: uv run pytest ${{ matrix.service }} --cov=${{ matrix.service }}/src
+        run: uv run pytest ${{ matrix.service }}/tests/ --cov=${{ matrix.service }}/src
 
       - name: Stop databases
         run: docker compose -f docker-compose.test.yml down

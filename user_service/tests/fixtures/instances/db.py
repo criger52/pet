@@ -7,8 +7,8 @@ from src.db.tables import Base
 
 @pytest.fixture(scope="session")
 async def setup_database() -> str:
-    db_name = "auth_test"
-    dsn = "postgresql+asyncpg://auth:auth@127.0.0.1:5432/postgres"
+    db_name = "user_test"
+    dsn = "postgresql+asyncpg://user:user@127.0.0.1:5433/postgres"
     admin_engine = create_async_engine(dsn, isolation_level="AUTOCOMMIT")
 
     async with admin_engine.begin() as conn:
@@ -24,7 +24,7 @@ async def async_engine(
         settings
 ):
 
-    async_engine = create_async_engine(settings.AUTH_SERVICE_DB_URL, echo=False)
+    async_engine = create_async_engine(settings.USER_SERVICE_DB_URL, echo=False)
     async with async_engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 

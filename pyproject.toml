@@ -24,17 +24,6 @@ members = [
     "product_service",
     "user_service",
 ]
-[tool.pytest.ini_options]
-asyncio_mode = "auto"
-pythonpath = [
-    ".",
-    "auth_service",
-    "inventory_service",
-    "notification_service",
-    "order_service",
-    "product_service",
-    "user_service"
-]
 
 [tool.coverage.run]
 omit = [
