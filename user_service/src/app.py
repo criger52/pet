@@ -6,6 +6,8 @@ from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
 
 from src.api.routes.router import user_router
+from src.broker.consumer import KafkaConsumer
+from src.broker.di import BrokerProvider
 from src.config import Settings
 from src.db.di import DatabaseProvider
 from src.services.di import ServicesProvider
@@ -18,12 +20,17 @@ class Application:
         self.container = make_async_container(
             ServicesProvider(settings=self.settings),
             DatabaseProvider(settings=self.settings),
+            BrokerProvider(settings=self.settings),
         )
 
     @asynccontextmanager
     async def lifespan(self, app: FastAPI) -> AsyncIterator[None]:
+        kafka_consumer = await self.container.get(KafkaConsumer)
+        await kafka_consumer.start()
 
         yield
+
+        await kafka_consumer.stop()
 
     def _include_routers(self) -> None:
         self._app.include_router(user_router)

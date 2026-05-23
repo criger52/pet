@@ -1,3 +1,5 @@
+import logging
+
 import bcrypt
 from dishka import FromDishka
 from sqlalchemy import insert
@@ -9,6 +11,9 @@ from src.broker.producer import KafkaProducer
 from src.db.tables import UserTable
 from src.exceptions.messages import ErrorMessages
 from src.exceptions.user import EntityAlreadyExistsException
+
+
+logger = logging.getLogger(__name__)
 
 
 class RegisterService:
@@ -54,7 +59,8 @@ class RegisterService:
             )
 
             return user
-        except IntegrityError:
-            raise EntityAlreadyExistsException(message=ErrorMessages.USER_ALREADY_EXISTS)
+        except IntegrityError as e:
+            raise EntityAlreadyExistsException(message=ErrorMessages.USER_ALREADY_EXISTS) from e
         except Exception as e:
+            logger.error(e)
             raise e

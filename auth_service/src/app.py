@@ -18,9 +18,9 @@ class Application:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
         self.container = make_async_container(
-            DatabaseProvider(settings=settings),
-            ServicesProvider(settings=settings),
-            BrokerProvider(settings=settings),
+            DatabaseProvider(settings=self.settings),
+            ServicesProvider(settings=self.settings),
+            BrokerProvider(settings=self.settings),
         )
 
     @asynccontextmanager
