@@ -5,7 +5,7 @@ import logging
 from aiokafka import AIOKafkaConsumer
 
 from src.config import Settings
-from src.services.user_service import UserService
+from src.services.user_service import UserProfileService
 
 
 logger = logging.getLogger(__name__)
@@ -33,7 +33,7 @@ class KafkaConsumer:
                 user_data = msg.value
                 logger.info(f"Received message: {user_data}")
                 async with self.container() as request_container:
-                    user_service = await request_container.get(UserService)
+                    user_service = await request_container.get(UserProfileService)
                     await user_service.create_user_profile(user_data)
         except Exception as e:
             logger.error(e)

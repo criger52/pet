@@ -15,7 +15,7 @@ def app(settings: Settings) -> FastAPI:
 
 
 @pytest.fixture
-async def client(app: FastAPI, async_engine) -> AsyncIterator[AsyncClient]:
+async def client(app: FastAPI) -> AsyncIterator[AsyncClient]:
     async with AsyncClient(
         transport=ASGITransport(app=app),
         base_url="http://testserver",

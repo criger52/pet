@@ -26,12 +26,12 @@ class LoginService:
     def _create_access_token(self, user_id: str):
         expire = datetime.now(timezone.utc) + timedelta(minutes=self._setting.ACCESS_TOKEN_EXPIRE_MINUTES)
         payload = {"sub": user_id, "type": "access", "exp": expire}
-        return jwt.encode(payload, self._setting.SECRET_KEY, algorithm=self._setting.ALGORITHM)
+        return jwt.encode(payload, self._setting.JWT_SECRET_KEY, algorithm=self._setting.JWT_ALGORITHM)
 
     def _create_refresh_token(self, user_id: str) -> str:
         expire = datetime.now(timezone.utc) + timedelta(days=self._setting.REFRESH_TOKEN_EXPIRE_DAYS)
         payload = {"sub": user_id, "type": "refresh", "exp": expire}
-        return jwt.encode(payload, self._setting.SECRET_KEY, algorithm=self._setting.ALGORITHM)
+        return jwt.encode(payload, self._setting.JWT_SECRET_KEY, algorithm=self._setting.JWT_ALGORITHM)
 
     async def login(self, user_credentials: LoginRequest) -> LoginResponse:
         result = await self.__session.execute(

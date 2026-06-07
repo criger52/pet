@@ -1,5 +1,4 @@
 import uuid
-from typing import Optional
 
 import pytest
 from pydantic import EmailStr
@@ -13,7 +12,7 @@ class UserTableFactory:
 
     @staticmethod
     async def create(
-            email: Optional[EmailStr] = None,
+            email: EmailStr | None = None,
             password: str = "test_pswd1",
     ) -> UserTable:
         user = UserTable(
@@ -30,7 +29,7 @@ class UserTableFactory:
 async def create_user_table(session: AsyncSession):
 
     async def _create_user(
-            email: Optional[EmailStr]  = None,
+            email: EmailStr | None,
             password: str = "tets_pswd1",
     ) -> UserTable:
         user = await UserTableFactory.create(email=email, password=password)

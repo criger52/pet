@@ -2,9 +2,10 @@ from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
 from dishka import make_async_container
-from dishka.integrations.fastapi import setup_dishka
+from dishka.integrations.fastapi import FastapiProvider, setup_dishka
 from fastapi import FastAPI
 
+from src.api.di import AuthProvider
 from src.api.routes.router import user_router
 from src.broker.consumer import KafkaConsumer
 from src.broker.di import BrokerProvider
@@ -18,9 +19,11 @@ class Application:
     def __init__(self, settings: Settings) -> None:
         self.settings = settings
         self.container = make_async_container(
+            FastapiProvider(),
             ServicesProvider(settings=self.settings),
             DatabaseProvider(settings=self.settings),
             BrokerProvider(settings=self.settings),
+            AuthProvider(settings=self.settings),
         )
 
     @asynccontextmanager
