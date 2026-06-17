@@ -50,18 +50,11 @@ make down-volumes
 
 ### 4. Миграции (локально)
 
-Postgres из `docker-compose` должен быть запущен на `localhost:5432`.
 
 ```bash
-make apply-migration-local service=auth_service
-make apply-migration-local service=user_service
+make create-migration-local service=auth_service
 ```
 
-Создать новую миграцию:
-
-```bash
-make create-migration-local service=auth_service m="описание"
-```
 
 ## Тесты
 

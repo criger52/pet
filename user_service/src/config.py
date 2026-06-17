@@ -3,6 +3,8 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    """Environment-based configuration for the user service."""
+
     SERVICE_NAME: str = "User Service"
     SERVICE_VERSION: str = "1.0"
     USER_SERVICE_DB_URL: str = "postgresql+asyncpg://user:user@user-db:5432/user"
@@ -12,11 +14,11 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
     JWT_SECRET_KEY: str = Field(...)
 
-
     class ConfigDict:
         extra = "ignore"
         env_file = ".env"
 
 
 def get_settings() -> Settings:
+    """Load and return application settings from environment variables."""
     return Settings()

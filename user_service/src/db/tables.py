@@ -9,10 +9,12 @@ from src.db.user_roles import UserRoles
 
 
 class Base(DeclarativeBase):
-    pass
+    """Base class for all user service ORM models."""
 
 
 class UserProfileTable(Base):
+    """Represents a user profile linked to an auth service user."""
+
     __tablename__ = "user_profiles"
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(unique=True, nullable=False)

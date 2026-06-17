@@ -22,16 +22,19 @@ async def login(
         user_data: LoginRequest,
         login_service: FromDishka[LoginService]
 ):
+    """Authenticate a user and return JWT access and refresh tokens."""
     try:
         tokens = await login_service.login(user_data)
+        logger.info(f"User logged in: {user_data.email}")
         return tokens
     except LoginFailedException as e:
+        logger.warning(f"Login failed for {user_data.email}: {e.message}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=e.message
         )
     except Exception as e:
-        logger.error(e)
+        logger.error(f"Unexpected login error for {user_data.email}: {e}", exc_info=True)
         raise HTTPException(
             status_code=500,
             detail=ErrorMessages.UNKNOWN_ERROR.value

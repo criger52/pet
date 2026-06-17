@@ -11,7 +11,9 @@ from src.services.user_service import UserProfileService
 
 logger = logging.getLogger(__name__)
 
+
 class AuthProvider(Provider):
+    """Resolves the current authenticated user from the JWT Bearer token."""
 
     def __init__(
             self,
@@ -26,7 +28,8 @@ class AuthProvider(Provider):
         request: Request,
         user_service: FromDishka[UserProfileService],
     ) -> UserProfileTable:
+        """Extract user ID from JWT and load the corresponding profile."""
         token = request.headers.get("Authorization", "").replace("Bearer ", "")
         user_id = decode_token(token, self.__settings)
-        logger.info(f"User ID: {user_id}")
+        logger.debug(f"Authenticated request from user_id={user_id}")
         return await user_service.fetch_user_by_id(user_id)

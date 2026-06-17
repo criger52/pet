@@ -31,11 +31,3 @@ async def async_session_maker(async_engine):
 async def session(async_session_maker):
     async with async_session_maker() as session:
         yield session
-
-# @pytest.fixture(autouse=True)
-# async def cleanup(async_engine):
-#     yield
-#     async with async_engine.begin() as conn:
-#         tables = Base.metadata.tables.keys()
-#         for table in tables:
-#             await conn.execute(text(f"TRUNCATE {table} CASCADE"))

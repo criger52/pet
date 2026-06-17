@@ -12,9 +12,16 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()]
 )
 
+logging.getLogger("sqlalchemy.engine").setLevel(logging.CRITICAL)
+
+logger = logging.getLogger(__name__)
+
+
 def main():
+    """Create the FastAPI app and start the uvicorn server."""
     settings = get_settings()
     app = Application(settings).create_app()
+    logger.info("Starting %s on port %s", settings.SERVICE_NAME, settings.SERVICE_PORT)
     uvicorn.run(app, host="0.0.0.0", port=settings.SERVICE_PORT)
 
 

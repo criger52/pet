@@ -3,6 +3,8 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    """Environment-based configuration for the auth service."""
+
     SERVICE_NAME: str = "Auth Service"
     SERVICE_VERSION: str = "1.0"
     AUTH_SERVICE_DB_URL: str = "postgresql+asyncpg://auth:auth@auth-db:5432/auth"
@@ -17,5 +19,7 @@ class Settings(BaseSettings):
     class ConfigDict:
         extra = "ignore"
 
+
 def get_settings() -> Settings:
+    """Load and return application settings from environment variables."""
     return Settings()
