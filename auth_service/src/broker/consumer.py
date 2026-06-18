@@ -4,6 +4,7 @@ import logging
 
 from aiokafka import AIOKafkaConsumer
 
+from src.broker.message_statuses import MessageStatuses
 from src.config import Settings
 
 
@@ -42,12 +43,12 @@ class KafkaConsumer:
 
             logger.info(f"Received reply: user_id={user_id}, status={status}")
             try:
-                if status == "failed":
+                if status == MessageStatuses.FAILED.value:
                     await self.saga_service.handle_failed_registration(
                         user_id=user_id,
                         error=data.get("error")
                     )
-                elif status == "success":
+                elif status == MessageStatuses.SUCCESS.value:
                     await self.saga_service.handle_successful_registration(
                         user_id=user_id
                     )

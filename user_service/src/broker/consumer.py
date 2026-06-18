@@ -5,6 +5,7 @@ import logging
 from aiokafka import AIOKafkaConsumer
 from dishka import AsyncContainer
 
+from src.broker.message_statuses import MessageStatuses
 from src.broker.producer import KafkaProducer
 from src.config import Settings
 from src.services.user_service import UserProfileService
@@ -52,7 +53,7 @@ class KafkaConsumer:
                             key=user_id,
                             value={
                                 "user_id": user_id,
-                                "status": "success",
+                                "status": MessageStatuses.SUCCESS.value,
                                 "error": None
                             }
                         )
@@ -63,7 +64,7 @@ class KafkaConsumer:
                             key=user_id,
                             value={
                                 "user_id": user_id,
-                                "status": "failed",
+                                "status": MessageStatuses.FAILED.value,
                                 "error": str(e)
                             }
                         )
