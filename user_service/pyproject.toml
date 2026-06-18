@@ -5,9 +5,20 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "aiokafka>=0.14.0",
     "alembic>=1.18.4",
     "asyncpg>=0.31.0",
+    "dishka>=1.10.1",
     "fastapi>=0.136.1",
     "pydantic-settings>=2.14.1",
+    "python-jose[cryptography]>=3.5.0",
     "uvicorn>=0.46.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+pythonpath = ["."]
+env = [
+    "DEBUG=false",
+    "JWT_SECRET_KEY=secret_key",
 ]

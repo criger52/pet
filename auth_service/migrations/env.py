@@ -7,13 +7,13 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from auth_service.src.db.tables import Base
+from src.db.tables import Base
 
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-database_url = os.getenv('DB_URL', 'postgresql+asyncpg://auth:auth@auth-db:5432/auth')
+database_url = os.getenv('AUTH_SERVICE_DB_URL', 'postgresql+asyncpg://auth:auth@auth-db:5432/auth')
 config.set_main_option("sqlalchemy.url", database_url)
 
 # Interpret the config file for Python logging.

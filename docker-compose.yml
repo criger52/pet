@@ -16,15 +16,35 @@ services:
       - auth_service/.env
     volumes:
       - auth_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U auth" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   auth-service:
     build:
       context: .
       dockerfile: auth_service/Dockerfile
     depends_on:
-      - auth-db
-      - kafka-broker
+      auth-db:
+        condition: service_healthy
+      kafka-broker:
+        condition: service_started
     env_file:
       - auth_service/.env
+  auth-worker:
+    build:
+      context: .
+      dockerfile: auth_service/Dockerfile
+    depends_on:
+      auth-db:
+        condition: service_healthy
+      kafka-broker:
+        condition: service_started
+    env_file:
+      - auth_service/.env
+    command: ["uv", "run", "python", "-m", "src.workers.run"]
+    restart: unless-stopped
   inventory-service:
     build:
       context: .
@@ -52,7 +72,8 @@ services:
       context: .
       dockerfile: user_service/Dockerfile
     depends_on:
-      - user-db
+      user-db:
+        condition: service_healthy
     env_file:
       - user_service/.env
   user-db:
@@ -63,6 +84,11 @@ services:
       - user_service/.env
     volumes:
       - user_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   auth_postgres_data:

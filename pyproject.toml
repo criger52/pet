@@ -10,42 +10,21 @@ dependencies = [
     "pytest>=9.0.3",
     "pytest-asyncio>=1.3.0",
     "pytest-cov>=7.1.0",
+    "pytest-env>=1.6.0",
     "ruff>=0.15.12",
 ]
 
 [tool.uv.workspace]
 members = [
-    "api_gateway",
     "auth_service",
     "inventory_service",
-    "kafka_broker",
     "notification_service",
     "order_service",
     "product_service",
     "user_service",
 ]
-[tool.pytest.ini_options]
-asyncio_mode = "auto"
-pythonpath = [
-    ".",
-    "auth_service",
-    "inventory_service",
-    "notification_service",
-    "order_service",
-    "product_service",
-    "user_service"
-]
-testpaths = [
-    "auth_service/tests",
-    "inventory_service/tests",
-    "notification_service/tests",
-    "order_service/tests",
-    "product_service/tests",
-    "user_service/tests"
-]
 
 [tool.coverage.run]
-source = ["auth_service"]
 omit = [
     "*/tests/*",
     "*/migrations/*",
@@ -54,6 +33,7 @@ omit = [
 
 [tool.coverage.report]
 fail_under = 80
+
 [tool.isort]
 line_length = 88
 multi_line_output = 3
